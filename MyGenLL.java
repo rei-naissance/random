@@ -7,11 +7,11 @@ public class MyGenLL<T> {
         size = 0;
     }
 
-    protected void addTail(Object o) {
+    public void addTail(Object o) {
         Node<T> n = new Node<T>();
         n.object = (T) o;
 
-        if (isEmpty()) {
+        if (size == 0) {
             head = n;
             tail = n;
             size++;
@@ -20,36 +20,25 @@ public class MyGenLL<T> {
 
         tail.next = n;
         tail = n;
-
         size++;
+        return;
     }
-    protected void set(Object e, int pos){
+
+    public T set(Object e, int pos){
+        if(pos < 0 || pos > size){
+            throw new IllegalArgumentException("Invalid position: " + pos);
+        }
+
         Node<T> n = head;
-        int ctr= 1;
+        int ctr = 1;
         while(ctr != pos){
             n = n.next;
             ctr++;
         }
 
+        T ret = n.object;
+        n.object = (T) e;
 
+        return ret;
     }
-
-    public int GetSize() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public void print() {
-        Node<T> curr = head;
-
-        while (curr != tail) {
-            System.out.println(curr + " -> ");
-            curr = curr.next;
-        }
-    }
-
-
 }
